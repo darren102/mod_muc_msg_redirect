@@ -1,0 +1,22 @@
+# Module now allows two ways to be configured
+
+1. Via the modules handler specifying the server information
+
+{modules,
+ [
+  {mod_muc_msg_redirect, [{
+                           {servers, [["xmlrpc.jabber.org", "jabber.org"], ["dev.example.com", "example.com"]]}, % server can be either in ip format or domain name format
+                           {port, 4560}, % the port on the server we will connect too
+                           {uri, "/"}, % uri on the server to send the xmlrpc call
+                           {method, mod_muc_msg_redirect.default} % xmlrpc method that will be called by the system do not put "" around the method
+                         }]}
+ ]}.
+
+2. Via the host_config stanza
+
+{host_config, "chat.openband.net", [{mod_muc_msg_redirect_url,"www.openband.net"},
+                                    {mod_muc_msg_redirect_port, "80"},
+                                    {mod_muc_msg_redirect_uri, "/xmlrpc.php"},
+                                    {mod_muc_msg_redirect_method,xmpp_node_muc.room_log}
+]}.
+
